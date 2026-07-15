@@ -6,6 +6,7 @@
 
 import express from 'express';
 import path from 'path';
+import fs from 'fs';
 import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
@@ -83,14 +84,16 @@ app.get('/health', (_req, res) => {
 
 if (env.NODE_ENV === 'production') {
   const clientBuildPath = path.join(__dirname, '../../client/dist');
-  app.use(express.static(clientBuildPath));
-  app.get('*', (req, res, next) => {
-    // Pass API requests to the API router/404 handlers
-    if (req.path.startsWith('/api/')) {
-      return next();
-    }
-    res.sendFile(path.join(clientBuildPath, 'index.html'));
-  });
+  if (fs.existsSync(clientBuildPath)) {
+    app.use(express.static(clientBuildPath));
+    app.get('*', (req, res, next) => {
+      // Pass API requests to the API router/404 handlers
+      if (req.path.startsWith('/api/')) {
+        return next();
+      }
+      res.sendFile(path.join(clientBuildPath, 'index.html'));
+    });
+  }
 }
 
 // =============================================================================
