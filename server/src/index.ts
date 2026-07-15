@@ -17,33 +17,42 @@ async function main() {
     await prisma.$connect();
     logger.info('✅ Database connected successfully');
 
-    // Schedule background jobs
-    scheduleBookingExpiry();
+    // Only start server listener and cron jobs if not running on Vercel Serverless
+    if (!process.env.VERCEL) {
+      // Schedule background jobs
+      scheduleBookingExpiry();
 
-    // Start the HTTP server
-    app.listen(PORT, () => {
-      logger.info(`🚀 LocalLink API server running on port ${PORT}`);
-      logger.info(`📍 Environment: ${env.NODE_ENV}`);
-      logger.info(`🔗 Health check: http://localhost:${PORT}/health`);
-      logger.info(`📘 API Base: http://localhost:${PORT}/api/v1`);
-    });
+      // Start the HTTP server
+      app.listen(PORT, () => {
+        logger.info(`🚀 LocalLink API server running on port ${PORT}`);
+        logger.info(`📍 Environment: ${env.NODE_ENV}`);
+        logger.info(`🔗 Health check: http://localhost:${PORT}/health`);
+        logger.info(`📘 API Base: http://localhost:${PORT}/api/v1`);
+      });
+    }
   } catch (error) {
     logger.error({ error }, '❌ Failed to start server');
-    process.exit(1);
+    if (!process.env.VERCEL) {
+      process.exit(1);
+    }
   }
 }
 
 // Graceful shutdown
-process.on('SIGINT', async () => {
-  logger.info('Received SIGINT. Shutting down gracefully...');
-  await prisma.$disconnect();
-  process.exit(0);
-});
+if (!process.env.VERCEL) {
+  process.on('SIGINT', async () => {
+    logger.info('Received SIGINT. Shutting down gracefully...');
+    await prisma.$disconnect();
+    process.exit(0);
+  });
 
-process.on('SIGTERM', async () => {
-  logger.info('Received SIGTERM. Shutting down gracefully...');
-  await prisma.$disconnect();
-  process.exit(0);
-});
+  process.on('SIGTERM', async () => {
+    logger.info('Received SIGTERM. Shutting down gracefully...');
+    await prisma.$disconnect();
+    process.exit(0);
+  });
+}
 
 main();
+
+export default app;
