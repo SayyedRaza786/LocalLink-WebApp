@@ -14,7 +14,7 @@ import { env } from '../../config/env';
 const REFRESH_COOKIE_OPTIONS = {
   httpOnly: true,                              // Not accessible via JavaScript
   secure: env.NODE_ENV === 'production',       // HTTPS only in production
-  sameSite: 'strict' as const,                 // CSRF protection
+  sameSite: (env.NODE_ENV === 'production' ? 'none' : 'lax') as 'none' | 'lax', // Support cross-origin cookies in production
   maxAge: 7 * 24 * 60 * 60 * 1000,            // 7 days in milliseconds
   path: '/api/v1/auth',                        // Only sent to auth endpoints
 };
@@ -86,7 +86,7 @@ export class AuthController {
     res.clearCookie('refreshToken', {
       httpOnly: true,
       secure: env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      sameSite: (env.NODE_ENV === 'production' ? 'none' : 'lax') as 'none' | 'lax',
       path: '/api/v1/auth',
     });
 
