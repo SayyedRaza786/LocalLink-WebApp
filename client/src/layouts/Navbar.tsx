@@ -44,11 +44,11 @@ export const Navbar: React.FC = () => {
     handleCloseUserMenu();
     if (!user) return;
     if (user.role === 'ADMIN') {
-      navigate('/admin/dashboard');
+      navigate('/admin');
     } else if (user.role === 'PROVIDER') {
-      navigate('/provider/dashboard');
+      navigate('/provider');
     } else {
-      navigate('/customer/dashboard');
+      navigate('/customer');
     }
   };
 
