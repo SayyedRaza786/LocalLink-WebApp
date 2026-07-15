@@ -72,7 +72,7 @@ export const Footer: React.FC = () => {
               </Typography>
             </Box>
             <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.7)', lineHeight: 1.6, mb: 3 }}>
-              Connecting local services with local people. Find certified, pre-screened experts for all your home, repair, and educational needs.
+              LocalLink is a premium full-stack service marketplace developed by Sayyed Raza to demonstrate modern engineering, security architectures, and scalable UI designs.
             </Typography>
             <Typography variant="caption" sx={{ display: 'block', color: 'rgba(255, 255, 255, 0.5)' }}>
               &copy; {new Date().getFullYear()} LocalLink. All rights reserved.
@@ -122,9 +122,6 @@ export const Footer: React.FC = () => {
                 About Us
               </Link>
               <Link href="#" sx={{ color: 'rgba(255, 255, 255, 0.7)', '&:hover': { color: '#FFFFFF' }, fontWeight: 500 }} variant="body2" underline="hover">
-                Careers
-              </Link>
-              <Link href="#" sx={{ color: 'rgba(255, 255, 255, 0.7)', '&:hover': { color: '#FFFFFF' }, fontWeight: 500 }} variant="body2" underline="hover">
                 Terms & Conditions
               </Link>
               <Link href="#" sx={{ color: 'rgba(255, 255, 255, 0.7)', '&:hover': { color: '#FFFFFF' }, fontWeight: 500 }} variant="body2" underline="hover">
@@ -138,18 +135,12 @@ export const Footer: React.FC = () => {
             <Typography variant="subtitle2" sx={{ fontWeight: 800, color: '#FFFFFF', mb: 2, textTransform: 'uppercase', letterSpacing: '0.5px', fontSize: '11px' }}>
               Follow Us
             </Typography>
-            <Stack direction="row" spacing={1} sx={{ ml: -1 }}>
-              <IconButton component="a" href="https://facebook.com" target="_blank" color="inherit" sx={{ color: 'rgba(255, 255, 255, 0.7)', '&:hover': { color: '#FFFFFF' } }}>
-                <FacebookIcon sx={{ fontSize: 20 }} />
+            <Stack direction="row" spacing={1.5} sx={{ ml: -1 }}>
+              <IconButton component="a" href="https://www.linkedin.com/in/razasayyed21" target="_blank" color="inherit" sx={{ color: 'rgba(255, 255, 255, 0.7)', '&:hover': { color: '#818CF8' } }}>
+                <LinkedInIcon sx={{ fontSize: 22 }} />
               </IconButton>
-              <IconButton component="a" href="https://instagram.com" target="_blank" color="inherit" sx={{ color: 'rgba(255, 255, 255, 0.7)', '&:hover': { color: '#FFFFFF' } }}>
-                <InstagramIcon sx={{ fontSize: 20 }} />
-              </IconButton>
-              <IconButton component="a" href="https://twitter.com" target="_blank" color="inherit" sx={{ color: 'rgba(255, 255, 255, 0.7)', '&:hover': { color: '#FFFFFF' } }}>
-                <TwitterIcon sx={{ fontSize: 20 }} />
-              </IconButton>
-              <IconButton component="a" href="https://linkedin.com" target="_blank" color="inherit" sx={{ color: 'rgba(255, 255, 255, 0.7)', '&:hover': { color: '#FFFFFF' } }}>
-                <LinkedInIcon sx={{ fontSize: 20 }} />
+              <IconButton component="a" href="https://www.instagram.com/sayyedraza21/?hl=en" target="_blank" color="inherit" sx={{ color: 'rgba(255, 255, 255, 0.7)', '&:hover': { color: '#F43F5E' } }}>
+                <InstagramIcon sx={{ fontSize: 22 }} />
               </IconButton>
             </Stack>
           </Grid>
