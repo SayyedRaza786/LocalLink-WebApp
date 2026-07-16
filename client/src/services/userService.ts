@@ -18,7 +18,11 @@ export const userService = {
   },
 
   changePassword: async (data: any): Promise<void> => {
-    await apiClient.patch('/users/me/password', data);
+    const payload = {
+      currentPassword: data.oldPassword || data.currentPassword,
+      newPassword: data.newPassword,
+    };
+    await apiClient.patch('/users/me/password', payload);
   },
 };
 export default userService;

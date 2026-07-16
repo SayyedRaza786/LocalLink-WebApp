@@ -72,6 +72,7 @@ export const DashboardLayout: React.FC = () => {
           { text: 'User Management', path: '/admin/users', icon: <UsersIcon /> },
           { text: 'Provider Verification', path: '/admin/providers', icon: <VerifyIcon /> },
           { text: 'Reports', path: '/admin/reports', icon: <ReportIcon /> },
+          { text: 'Profile Settings', path: '/admin/profile', icon: <ProfileIcon /> },
         ];
       case 'PROVIDER':
         return [
