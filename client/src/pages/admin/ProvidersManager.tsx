@@ -140,7 +140,7 @@ export const ProvidersManager: React.FC = () => {
         <EmptyState title="No Providers Found" description="Try adjusting search keyword filters." />
       ) : (
         <Card sx={{ border: '1px solid', borderColor: 'divider', borderRadius: '12px' }}>
-          <TableContainer component={Paper} elevation={0} sx={{ border: 'none' }}>
+          <TableContainer component={Paper} elevation={0} sx={{ border: 'none', overflowX: 'auto' }}>
             <Table aria-label="admin providers table">
               <TableHead>
                 <TableRow>

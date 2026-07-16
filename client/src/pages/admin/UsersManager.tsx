@@ -163,7 +163,7 @@ export const UsersManager: React.FC = () => {
         <EmptyState title="No Users Found" description="Try broadening your search query constraints." />
       ) : (
         <Card sx={{ border: '1px solid', borderColor: 'divider', borderRadius: '12px' }}>
-          <TableContainer component={Paper} elevation={0} sx={{ border: 'none' }}>
+          <TableContainer component={Paper} elevation={0} sx={{ border: 'none', overflowX: 'auto' }}>
             <Table aria-label="admin users table">
               <TableHead>
                 <TableRow>

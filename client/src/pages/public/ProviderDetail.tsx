@@ -362,11 +362,11 @@ export const ProviderDetail: React.FC = () => {
       {/* 2. Detail Tabs Section */}
       <Box sx={{ width: '100%' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={activeTab} onChange={handleTabChange} aria-label="provider portfolio tabs">
-            <Tab icon={<ServicesIcon />} label="Services Offered" iconPosition="start" sx={{ fontWeight: 700 }} />
-            <Tab icon={<GalleryIcon />} label="Portfolio Gallery" iconPosition="start" sx={{ fontWeight: 700 }} />
-            <Tab icon={<CalendarIcon />} label="Availability" iconPosition="start" sx={{ fontWeight: 700 }} />
-            <Tab icon={<ReviewsIcon />} label={`Reviews (${provider.totalReviews})`} iconPosition="start" sx={{ fontWeight: 700 }} />
+          <Tabs value={activeTab} onChange={handleTabChange} aria-label="provider portfolio tabs" variant="scrollable" scrollButtons="auto" allowScrollButtonsMobile>
+            <Tab icon={<ServicesIcon />} label="Services" iconPosition="start" sx={{ fontWeight: 700, minWidth: 'auto' }} />
+            <Tab icon={<GalleryIcon />} label="Gallery" iconPosition="start" sx={{ fontWeight: 700, minWidth: 'auto' }} />
+            <Tab icon={<CalendarIcon />} label="Availability" iconPosition="start" sx={{ fontWeight: 700, minWidth: 'auto' }} />
+            <Tab icon={<ReviewsIcon />} label={`Reviews (${provider.totalReviews})`} iconPosition="start" sx={{ fontWeight: 700, minWidth: 'auto' }} />
           </Tabs>
         </Box>
 

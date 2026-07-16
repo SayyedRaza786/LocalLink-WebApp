@@ -260,12 +260,12 @@ export const BookingsQueue: React.FC = () => {
 
       {/* Tabs Filter */}
       <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
-        <Tabs value={tabValue} onChange={handleTabChange} aria-label="provider bookings tabs">
-          <Tab label="All Bookings" sx={{ fontWeight: 600 }} />
-          <Tab label="Incoming Requests" sx={{ fontWeight: 600 }} />
-          <Tab label="Scheduled Work" sx={{ fontWeight: 600 }} />
-          <Tab label="In Progress" sx={{ fontWeight: 600 }} />
-          <Tab label="History (Done/Cancelled)" sx={{ fontWeight: 600 }} />
+        <Tabs value={tabValue} onChange={handleTabChange} aria-label="provider bookings tabs" variant="scrollable" scrollButtons="auto" allowScrollButtonsMobile>
+          <Tab label="All Bookings" sx={{ fontWeight: 600, minWidth: 'auto' }} />
+          <Tab label="Incoming" sx={{ fontWeight: 600, minWidth: 'auto' }} />
+          <Tab label="Scheduled" sx={{ fontWeight: 600, minWidth: 'auto' }} />
+          <Tab label="In Progress" sx={{ fontWeight: 600, minWidth: 'auto' }} />
+          <Tab label="History" sx={{ fontWeight: 600, minWidth: 'auto' }} />
         </Tabs>
       </Box>
 

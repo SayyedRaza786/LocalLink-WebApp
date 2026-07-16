@@ -131,7 +131,7 @@ export const Home: React.FC = () => {
             theme.palette.mode === 'light'
               ? 'linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%)'
               : 'linear-gradient(135deg, #0B0F19 0%, #1E293B 100%)',
-          py: { xs: 8, md: 12 },
+          py: { xs: 6, md: 12 },
           position: 'relative',
           overflow: 'hidden',
           borderBottom: '1px solid',
@@ -345,9 +345,10 @@ export const Home: React.FC = () => {
                 <Box
                   className="hero-float-1"
                   sx={{
+                    display: { xs: 'none', sm: 'flex' },
                     position: 'absolute',
                     top: '8%',
-                    right: '-10%',
+                    right: { sm: '-5%', md: '-10%' },
                     backgroundColor: 'background.paper',
                     borderRadius: '16px',
                     p: 2,
@@ -390,9 +391,10 @@ export const Home: React.FC = () => {
                 <Box
                   className="hero-float-2"
                   sx={{
+                    display: { xs: 'none', sm: 'flex' },
                     position: 'absolute',
                     bottom: '22%',
-                    left: '-14%',
+                    left: { sm: '-8%', md: '-14%' },
                     backgroundColor: 'background.paper',
                     borderRadius: '16px',
                     p: 2,
@@ -423,6 +425,7 @@ export const Home: React.FC = () => {
                 <Box
                   className="hero-float-3"
                   sx={{
+                    display: { xs: 'none', sm: 'flex' },
                     position: 'absolute',
                     bottom: '-6%',
                     right: '-2%',
@@ -468,11 +471,11 @@ export const Home: React.FC = () => {
           backgroundColor: (theme) => theme.palette.mode === 'light' ? '#FFFFFF' : 'background.default',
           borderBottom: '1px solid',
           borderColor: 'divider',
-          py: 10,
+          py: { xs: 6, md: 10 },
         }}
       >
         <Container id="categories-section" maxWidth="lg">
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', mb: 5 }}>
+          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', alignItems: { xs: 'flex-start', sm: 'flex-end' }, gap: { xs: 2, sm: 0 }, mb: 5 }}>
             <Box>
               <Typography variant="h4" component="h2" sx={{ fontWeight: 850, fontFamily: '"Outfit", sans-serif', color: 'text.primary', mb: 1 }}>
                 Popular Categories
@@ -562,13 +565,13 @@ export const Home: React.FC = () => {
       <Box
         sx={{
           backgroundColor: (theme) => theme.palette.mode === 'light' ? '#EEF2F6' : '#0B0F19',
-          py: 10,
+          py: { xs: 6, md: 10 },
           borderBottom: '1px solid',
           borderColor: 'divider',
         }}
       >
         <Container maxWidth="lg">
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', mb: 5 }}>
+          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', alignItems: { xs: 'flex-start', sm: 'flex-end' }, gap: { xs: 2, sm: 0 }, mb: 5 }}>
             <Box>
               <Typography variant="h4" component="h2" sx={{ fontWeight: 850, fontFamily: '"Outfit", sans-serif', color: 'text.primary', mb: 1 }}>
                 Top Rated Local Professionals
@@ -748,11 +751,11 @@ export const Home: React.FC = () => {
           backgroundColor: (theme) => theme.palette.mode === 'light' ? '#FFFFFF' : 'background.default',
           borderBottom: '1px solid',
           borderColor: 'divider',
-          py: 10,
+          py: { xs: 6, md: 10 },
         }}
       >
         <Container maxWidth="lg">
-          <Box sx={{ textAlign: 'center', mb: 7.5 }}>
+          <Box sx={{ textAlign: 'center', mb: { xs: 5, md: 7.5 } }}>
             <Typography variant="h4" component="h2" sx={{ fontWeight: 850, fontFamily: '"Outfit", sans-serif', color: 'text.primary', mb: 1.5 }}>
               Why Choose LocalLink?
             </Typography>
@@ -806,13 +809,13 @@ export const Home: React.FC = () => {
         id="how-it-works-section"
         sx={{
           backgroundColor: (theme) => theme.palette.mode === 'light' ? '#F0F4FF' : '#0B0F19',
-          py: 10,
+          py: { xs: 6, md: 10 },
           borderBottom: '1px solid',
           borderColor: 'divider',
         }}
       >
         <Container maxWidth="lg">
-          <Box sx={{ textAlign: 'center', mb: 8 }}>
+          <Box sx={{ textAlign: 'center', mb: { xs: 5, md: 8 } }}>
             <Typography variant="h4" component="h2" sx={{ fontWeight: 850, fontFamily: '"Outfit", sans-serif', color: 'text.primary', mb: 1.5 }}>
               How LocalLink Works
             </Typography>

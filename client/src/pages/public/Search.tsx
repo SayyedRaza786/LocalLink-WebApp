@@ -28,6 +28,9 @@ import {
   Pagination,
   IconButton,
   Chip,
+  Drawer,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import {
   LocationOn as LocationIcon,
@@ -41,6 +44,9 @@ export const Search: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { location, loading: geoLoading, getCoordinates, clearLocation } = useGeoLocation();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
   // Extract query filters from URL search params
   const initialQ = searchParams.get('q') || '';
@@ -170,7 +176,8 @@ export const Search: React.FC = () => {
       </Box>
 
       <Grid container spacing={3}>
-        {/* 1. Sidebar Filters */}
+        {/* 1. Sidebar Filters — Desktop: always visible, Mobile: in a Drawer */}
+        {!isMobile && (
         <Grid item xs={12} md={3.5} lg={3}>
           <Paper sx={{ p: 3, border: '1px solid', borderColor: 'divider', borderRadius: '12px' }} elevation={0}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
@@ -342,10 +349,120 @@ export const Search: React.FC = () => {
             </Button>
           </Paper>
         </Grid>
+        )}
+
+        {/* Mobile Filter Drawer */}
+        <Drawer
+          anchor="bottom"
+          open={mobileFilterOpen}
+          onClose={() => setMobileFilterOpen(false)}
+          sx={{
+            display: { xs: 'block', md: 'none' },
+            '& .MuiDrawer-paper': {
+              borderTopLeftRadius: '16px',
+              borderTopRightRadius: '16px',
+              maxHeight: '85vh',
+              overflow: 'auto',
+            },
+          }}
+        >
+          <Paper sx={{ p: 3 }} elevation={0}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+              <Typography variant="h6" sx={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: 1 }}>
+                <FilterIcon color="primary" /> Filters
+              </Typography>
+              <Button size="small" onClick={handleClearFilters} sx={{ fontWeight: 600 }}>
+                Reset
+              </Button>
+            </Box>
+
+            <Divider sx={{ mb: 2.5 }} />
+
+            <TextField fullWidth label="Keywords" placeholder="e.g. Electrician, Cleaner" value={q} onChange={(e) => setQ(e.target.value)} sx={{ mb: 2.5 }} />
+
+            <FormControl fullWidth sx={{ mb: 2.5 }}>
+              <InputLabel id="mobile-category-select-label">Category</InputLabel>
+              <Select labelId="mobile-category-select-label" value={category} label="Category" onChange={(e) => setCategory(e.target.value)}>
+                <MuiMenuItem value="">All Categories</MuiMenuItem>
+                {categories.map((cat) => (<MuiMenuItem key={cat.id} value={cat.slug}>{cat.name}</MuiMenuItem>))}
+              </Select>
+            </FormControl>
+
+            <Divider sx={{ mb: 2.5 }} />
+
+            <Box sx={{ mb: 2.5 }}>
+              <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5 }}>Location</Typography>
+              {location ? (
+                <Box sx={{ p: 1.5, border: '1px solid', borderColor: 'primary.light', borderRadius: '8px', backgroundColor: 'rgba(79, 70, 229, 0.04)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+                  <Typography variant="body2" sx={{ fontWeight: 600, color: 'primary.main' }}>Using Geolocation</Typography>
+                  <IconButton size="small" onClick={clearLocation}><ClearIcon fontSize="small" /></IconButton>
+                </Box>
+              ) : (
+                <Button fullWidth variant="outlined" startIcon={<LocationSearchIcon />} onClick={getCoordinates} disabled={geoLoading} sx={{ mb: 2, py: 1.25, fontWeight: 700 }}>
+                  {geoLoading ? 'Acquiring...' : 'Use My Geolocation'}
+                </Button>
+              )}
+              {location ? (
+                <Box sx={{ px: 1 }}>
+                  <Typography variant="caption" color="text.secondary" gutterBottom>Search Radius: {radius} km</Typography>
+                  <Slider value={radius} min={1} max={50} step={1} onChange={(_e, val) => setRadius(val as number)} valueLabelDisplay="auto" />
+                </Box>
+              ) : (
+                <Stack spacing={2}>
+                  <TextField fullWidth label="City" placeholder="e.g. New York" value={city} onChange={(e) => setCity(e.target.value)} />
+                  <TextField fullWidth label="Area/Neighborhood" placeholder="e.g. Manhattan" value={area} onChange={(e) => setArea(e.target.value)} />
+                </Stack>
+              )}
+            </Box>
+
+            <Divider sx={{ mb: 2.5 }} />
+
+            <Box sx={{ mb: 2.5 }}>
+              <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5 }}>Price Range ($)</Typography>
+              <Box sx={{ display: 'flex', gap: 1.5 }}>
+                <TextField label="Min" type="number" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} />
+                <TextField label="Max" type="number" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
+              </Box>
+            </Box>
+
+            <Divider sx={{ mb: 2.5 }} />
+
+            <Box sx={{ mb: 3 }}>
+              <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5 }}>Minimum Rating</Typography>
+              <Stack direction="row" alignItems="center" gap={1}>
+                <Rating value={minRating} onChange={(_e, val) => setMinRating(val || 0)} precision={0.5} />
+                {minRating > 0 && <Typography variant="body2">{minRating}+ Stars</Typography>}
+              </Stack>
+            </Box>
+
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              size="large"
+              onClick={() => { applyFilters(); setMobileFilterOpen(false); }}
+              sx={{ py: 1.5, fontWeight: 700 }}
+            >
+              Apply Filters
+            </Button>
+          </Paper>
+        </Drawer>
 
         {/* 2. Listings Column */}
         <Grid item xs={12} md={8.5} lg={9}>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+          {/* Mobile Filter Button */}
+          {isMobile && (
+            <Button
+              variant="outlined"
+              startIcon={<FilterIcon />}
+              onClick={() => setMobileFilterOpen(true)}
+              sx={{ mb: 2, fontWeight: 700, borderRadius: '8px' }}
+              fullWidth
+            >
+              Open Filters
+            </Button>
+          )}
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3, flexWrap: 'wrap', gap: 1 }}>
             <Typography variant="subtitle1" color="text.secondary" sx={{ fontWeight: 600 }}>
               {meta.total} Provider(s) Found
             </Typography>

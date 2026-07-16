@@ -30,7 +30,7 @@ export const Footer: React.FC = () => {
       component="footer"
       id="about-section"
       sx={{
-        py: 7,
+        py: { xs: 5, md: 7 },
         px: 2,
         mt: 'auto',
         backgroundColor: mode === 'light' ? '#0F172A' : '#0B0F19', // Dark blue in light mode, Deep Charcoal in dark mode

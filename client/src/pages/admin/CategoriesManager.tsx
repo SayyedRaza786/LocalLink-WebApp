@@ -220,7 +220,7 @@ export const CategoriesManager: React.FC = () => {
         />
       ) : (
         <Card sx={{ border: '1px solid', borderColor: 'divider', borderRadius: '12px' }}>
-          <TableContainer component={Paper} elevation={0} sx={{ border: 'none' }}>
+          <TableContainer component={Paper} elevation={0} sx={{ border: 'none', overflowX: 'auto' }}>
             <Table aria-label="admin categories table">
               <TableHead>
                 <TableRow>

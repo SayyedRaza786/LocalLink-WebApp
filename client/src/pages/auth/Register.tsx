@@ -279,11 +279,11 @@ export const Register: React.FC = () => {
     <Box
       sx={{
         display: 'flex',
-        height: '100vh',
+        minHeight: '100vh',
         backgroundColor: 'background.default',
         color: 'text.primary',
         fontFamily: '"Inter", sans-serif',
-        overflow: 'hidden',
+        overflow: 'auto',
         position: 'relative',
       }}
     >
@@ -298,7 +298,7 @@ export const Register: React.FC = () => {
         }
       ` }} />
 
-      <Grid container sx={{ height: '100vh' }}>
+      <Grid container sx={{ minHeight: '100vh' }}>
         {/* ==========================================
             LEFT COLUMN (40% Width) - Airy Clean Gradient
             ========================================== */}
@@ -367,7 +367,7 @@ export const Register: React.FC = () => {
             justifyContent: 'center',
             alignItems: 'center',
             p: { xs: 2, sm: 4, md: 6 },
-            height: '100vh',
+            minHeight: '100vh',
             backgroundColor: 'background.default',
           }}
         >
