@@ -383,8 +383,8 @@ export const Search: React.FC = () => {
             <FormControl fullWidth sx={{ mb: 2.5 }}>
               <InputLabel id="mobile-category-select-label">Category</InputLabel>
               <Select labelId="mobile-category-select-label" value={category} label="Category" onChange={(e) => setCategory(e.target.value)}>
-                <MuiMenuItem value="">All Categories</MuiMenuItem>
-                {categories.map((cat) => (<MuiMenuItem key={cat.id} value={cat.slug}>{cat.name}</MuiMenuItem>))}
+                <MenuItem value="">All Categories</MenuItem>
+                {categories.map((cat) => (<MenuItem key={cat.id} value={cat.slug}>{cat.name}</MenuItem>))}
               </Select>
             </FormControl>
 
