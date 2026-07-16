@@ -1,122 +1,123 @@
-# LocalLink
+# 🏠 LocalLink - Neighborhood Service Marketplace
 
-> **"Connecting Local Services with Local People."**
+Welcome to **LocalLink**, a complete two-sided marketplace designed to connect local customers with independent service providers in their area (electricians, clean-up crews, home tutors, photographers, etc.). 
 
-LocalLink is a high-performance, two-sided marketplace designed to connect local customers seeking professional service experts (electricians, cleaners, tutors, photographers) with certified service providers. 
+I built this project to tackle the real-world complexities of service-based marketplaces. It handles everything from location-first radius searches, secure role-based access control, a state-machine-driven booking workflow, and responsive dashboards for both service providers and customers.
 
----
-
-## 🚀 Key Features
-
-*   **Premium Design System**: Structured with Material-UI (MUI) v5, featuring dynamic Indigo/Teal & Purple palettes, Inter/Outfit typography, micro-animations, glassmorphic headers, and full light/dark theme support.
-*   **Role-Based Security**: Complete authentication flows with JWT access tokens and secure HttpOnly refresh token rotation/theft-detection.
-*   **Structured Booking Workflows**: Clear transactional state machine ensuring reliable booking lifecycles (`PENDING` ➔ `ACCEPTED` / `REJECTED` / `CANCELLED` ➔ `ON_THE_WAY` ➔ `IN_PROGRESS` ➔ `COMPLETED`).
-*   **Location-First Discovery**: Proximity filtering using bounding-box database queries and exact Haversine distance calculations in TypeScript.
-*   **Real-time Messaging**: Socket.IO integration supporting active typing indicators, read receipts, and system alerts.
+🔗 **Live Demo**: [local-link-fronted.vercel.app](https://local-link-fronted.vercel.app/)
 
 ---
 
-## 🛠️ Tech Stack
+## ✨ Features I Focused On
 
-### Frontend
-*   **Framework**: React 18 (TypeScript)
-*   **Build Tool**: Vite 5
-*   **Styling**: Material-UI (MUI) v5 & Emotion CSS
-*   **Routing**: React Router DOM v6
-*   **State / API**: TanStack Query (React Query) v5, Axios client with interceptors for silent token refresh
-*   **Feedback**: React Hot Toast
-
-### Backend
-*   **Runtime**: Node.js (Express 5)
-*   **Database**: MySQL
-*   **ORM**: Prisma Client v6
-*   **Validation**: Zod v4 schemas
-*   **Scheduling**: Node-cron jobs for expiring stale bookings
-*   **Logging**: Pino (Structured JSON logs)
+*   **📱 Fully Responsive Design**: Built mobile-first with Material-UI (MUI) v5. The navigation bar switches to an interactive mobile drawer menu, filter panels collapse into elegant bottom sheets, long multi-step registration forms scroll cleanly, and data tables respond perfectly to screen boundaries.
+*   **🎨 Custom Premium Theme**: Dynamic dark/light mode toggle with custom MUI components. Uses custom gradient button variants, glassmorphic headers (`backdrop-filter`), slate/indigo aesthetics, and clean typography (Inter & Outfit).
+*   **🔒 Complete Auth Security**: Role-based access control (RBAC) separating `CUSTOMER`, `PROVIDER`, and `ADMIN`. Uses double JWT security (short-lived access tokens in memory and HttpOnly cookies for refresh token rotation/theft detection).
+*   **📍 Location-First Discovery**: Search results prioritize proximity. Providers define their serving radius, and searches calculate exact physical distances using bounding-box queries and Haversine formula calculations.
+*   **🔄 Structured Booking State Machine**: Bookings move through a strict, reliable status pipeline:
+    `PENDING` ➔ `ACCEPTED` / `REJECTED` ➔ `ON_THE_WAY` ➔ `IN_PROGRESS` ➔ `COMPLETED`. Customers can cancel at early stages, and providers can invoice adjustments at completion.
+*   **✉️ Notifications & Real-Time Alerts**: Integrated alerts keep both sides updated when booking statuses change.
 
 ---
 
-## 📂 Project Structure
+## 🛠️ The Tech Stack
+
+### Frontend (Client-side)
+*   **React 18** with **TypeScript** & **Vite** (extremely fast hot module replacement).
+*   **Material-UI (MUI) v5** & Emotion for theme-based layouts.
+*   **TanStack Query v5** (React Query) for smart client caching, polling, and mutations.
+*   **React Hook Form** + **Zod** for robust client-side validation schemas.
+*   **React Router DOM v6** for nested dashboard routing and layout guards.
+
+### Backend (Server-side)
+*   **Node.js** with **Express 5** for REST API endpoints.
+*   **MySQL** database.
+*   **Prisma Client v6** (ORM) for typed queries and clean schema migrations.
+*   **Zod** on the backend to enforce strict payload schemas before processing database queries.
+*   **Pino** for structured JSON application logging.
+
+---
+
+## 📂 Project Structure Overview
+
+Here's how I organized the codebase to keep it clean and modular:
 
 ```
 LocalLink/
-├── client/                      # Frontend Application (Vite + React)
+├── client/                      # Frontend App
 │   ├── src/
-│   │   ├── components/ui/       # Shared design primitives (Button, Modal, etc.)
-│   │   ├── config/              # Axios API clients and constants
-│   │   ├── context/             # React authentication contexts
-│   │   ├── layouts/             # Shared view shell configurations (Main, Dashboard)
-│   │   ├── pages/               # Login, Register, Search, Dashboards
-│   │   └── routes/              # Nested router definitions and auth guards
+│   │   ├── components/          # Reusable UI elements & state spinners
+│   │   ├── context/             # Authentication & custom theme providers
+│   │   ├── layouts/             # Dashboard and navigation shells
+│   │   ├── pages/               # Views (Home, Search, Auth, and Dashboard modules)
+│   │   ├── services/            # API client configurations (Axios wrappers)
+│   │   └── theme.ts             # Custom light/dark theme options
 │   └── vite.config.ts
 │
-├── server/                      # Backend API Service (Express + Node)
-│   ├── prisma/                  # Prisma Schemas and Seeding Scripts
+├── server/                      # Backend API Service
+│   ├── prisma/                  # Database schema & initial seeding scripts
 │   └── src/
-│       ├── config/              # Environment configurations & database singletons
-│       ├── middleware/          # Role checkers, error handlers, and rate limiters
-│       ├── modules/             # Domain-driven features (Auth, Booking, User)
-│       └── utils/               # Haversine metrics and response helpers
+│       ├── config/              # Server options & db instantiation
+│       ├── middleware/          # Security checkers, RBAC, error handlers
+│       ├── modules/             # Features (Auth, Bookings, Categories, Reviews)
+│       └── utils/               # Math/Distance helpers & generic API responses
 ```
 
 ---
 
-## ⚡ Getting Started
+## ⚡ Getting Started Locally
 
 ### Prerequisites
-*   Node.js (v18+)
-*   MySQL Server (v8.0+)
+- Install **Node.js** (v18 or higher)
+- A running **MySQL** instance
 
-### Installation
-1.  Clone the repository and enter the directory.
-2.  Install server dependencies:
-    ```bash
-    cd server
-    npm install
-    ```
-3.  Install client dependencies:
-    ```bash
-    cd ../client
-    npm install
-    ```
+### Step 1: Clone and Install
+First, clone the project files and run npm install in both directories:
 
-### Environment Variables
-Create a `.env` file inside the `server/` directory:
+```bash
+# Set up backend
+cd server
+npm install
+
+# Set up frontend
+cd ../client
+npm install
+```
+
+### Step 2: Configure Environments
+Create a `.env` file inside the `server/` folder:
+
 ```env
 PORT=5000
-DATABASE_URL="mysql://root:password@localhost:3306/locallink"
-JWT_SECRET="your-jwt-secret-here-at-least-32-characters-long"
-JWT_REFRESH_SECRET="your-refresh-secret-here-at-least-32-characters-long"
+DATABASE_URL="mysql://root:YOUR_PASSWORD@localhost:3306/locallink"
+JWT_SECRET="use-a-long-random-string-for-access-token"
+JWT_REFRESH_SECRET="use-another-long-random-string-for-refresh-token"
 JWT_ACCESS_EXPIRY=15m
 JWT_REFRESH_EXPIRY=7d
 CLIENT_URL=http://localhost:5173
 ```
 
-### Database Setup
-Within the `server/` directory, execute:
-1.  Run migrations:
-    ```bash
-    npx prisma migrate dev --name init
-    ```
-2.  Seed the database (creates admin user `admin@locallink.com` with password `adminSecurePassword123`):
-    ```bash
-    npx prisma db seed
-    ```
+### Step 3: Run Database Migrations & Seeds
+With MySQL running, generate the database tables and seed sample data:
 
-### Running Locally
-To launch both servers in development mode:
-*   **Backend**: `cd server && npm run dev` (starts on `http://localhost:5000`)
-*   **Frontend**: `cd client && npm run dev` (starts on `http://localhost:5173`)
+```bash
+cd server
 
----
+# Run migrations
+npx prisma migrate dev --name init
 
-## 🔒 Security Architecture
-*   **Password Hashing**: Bcrypt hashing with a work factor of 12.
-*   **Token Isolation**: JWT access tokens are persisted strictly in memory; refresh tokens are stored in HttpOnly cookies to mitigate XSS/CSRF vectors.
-*   **SQL Injection Prevention**: Prisma uses parameterized queries natively.
-*   **Rate Limiting**: Throttles route requests on critical endpoints to mitigate brute force attacks.
+# Seed database
+npx prisma db seed
+```
+*Note: Seeding creates an Admin account (`admin@locallink.com` / `adminSecurePassword123`) plus sample customer and provider accounts.*
+
+### Step 4: Run Services
+Run both development servers simultaneously:
+
+*   **Backend API**: Run `npm run dev` in the `server` directory (spins up on `http://localhost:5000`)
+*   **Frontend Client**: Run `npm run dev` in the `client` directory (spins up on `http://localhost:5173`)
 
 ---
 
 ## 📜 License
-This project is licensed under the MIT License.
+This project is open-source and available under the [MIT License](LICENSE).

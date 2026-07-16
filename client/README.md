@@ -1,32 +1,51 @@
-# React + TypeScript + Vite
+# 💻 LocalLink Frontend Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+This is the client-side single-page application (SPA) for the LocalLink platform. It's built on a modern, responsive React stack designed to feel fast, secure, and visually premium.
 
-Currently, two official plugins are available:
+🔗 **Live Demo**: [local-link-fronted.vercel.app](https://local-link-fronted.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🛠️ The Architecture & Architecture Choices
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+*   **⚡ Bundling with Vite & TypeScript**: I chose Vite to get instant hot module replacement (HMR) and fast build packaging. The entire codebase is strongly typed in TypeScript to catch errors at compile time and make onboarding or modifications safe.
+*   **🎨 Material-UI (MUI) v5 + Custom Theme**: Dynamic dark/light mode toggle utilizing custom overrides. All cards, dialogs, and navigation elements feature high-end styling details: glassmorphism backdrop-filters, clean box shadows, rounded corners, and premium gradients.
+*   **📱 Responsive Layouts**: Fully mobile-first design systems. Includes a slide-out hamburger navigation menu drawer, a bottom-sheet filters drawer for service searching, and auto-scrollable tab panels for dashboard tracking.
+*   **🔄 API Syncing with TanStack Query (React Query)**: Replaced legacy useEffect data fetching with react-query. This handles loading/error skeletons, automatic cache invalidation on edits, and request polling out of the box.
+*   **🔒 Route Guards & Auth Context**: Leverages React Context for login states. Routes are dynamically wrapped in protection guards to separate public pages, customer actions, provider options, and administrator controls.
+*   **📝 Validation with React Hook Form & Zod**: Form handlers are backed by Zod resolvers, validating fields like password strength checklists and date validity bounds prior to submission.
 
-## Expanding the Oxlint configuration
+---
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## 📂 Core Folder Breakdown
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```
+client/src/
+├── components/          # Shared views, alerts, and loading spinners
+├── context/             # App Contexts (AuthContext, ThemeContext)
+├── layouts/             # Navigation bars, Footers, and Dashboard wrappers
+├── pages/               # Main pages
+│   ├── auth/            # Login & Register views (multi-step forms)
+│   ├── public/          # Home, Search, and Provider details views
+│   ├── customer/        # Customer dashboard, booking views, favorites
+│   ├── provider/        # Provider planner, galleries, bookings queues
+│   └── admin/           # Platform metrics & category lists managers
+├── services/            # Axios API instances with refresh token interceptors
+└── theme.ts             # Custom palette styling options and button configs
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+---
+
+## 🚀 Running Locally
+
+Ensure the backend server is running, then launch the client:
+
+```bash
+# Install dependencies
+npm install
+
+# Start local server
+npm run dev
+```
+
+The application will run on `http://localhost:5173`.
